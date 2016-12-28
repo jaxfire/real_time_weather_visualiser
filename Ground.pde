@@ -43,22 +43,17 @@ class Ground{
       drawGround = false;
     }    
     
-    /*
-    //Renders all drops everytime - not good
-    for(int i = 0; i < screenX; i++){
-      for(int j = 0; j < floorDropsDepth; j++){
-        if(floorDrops[i][j]){
-          rect(i, groundHeight + j, 1, 1);
-         }
-      }
-    }
-    */
-
-    for(Point p : dropsToDraw){
-      //Render any gathered drops
-      fill(COLOUR_RAIN[0], COLOUR_RAIN[1], COLOUR_RAIN[2], alphaLevels[p.y]);
-      rect(p.x, groundHeight + p.y, 1, 1);
       
+    for(Point p : dropsToDraw){
+    
+      if(currentDropType == DropType.SNOW){
+        fill(COLOUR_SNOW[0], COLOUR_SNOW[1], COLOUR_SNOW[2], alphaLevels[p.y]);
+      } else {
+        fill(COLOUR_RAIN[0], COLOUR_RAIN[1], COLOUR_RAIN[2], alphaLevels[p.y]);
+      }
+      
+      //Render any gathered drops
+      rect(p.x, groundHeight + p.y, 1, 1);  
     }
     
     dropsToDraw.clear();
@@ -66,7 +61,6 @@ class Ground{
   }
   
   public void removeDropLayer(){
-    println("removeDropLayer");
     for(int i = 0; i < screenX; i++){
       for(int j = 0; j < floorDropsDepth - 1; j++){
          if(floorDrops[i][j] && !floorDrops[i][j + 1]){

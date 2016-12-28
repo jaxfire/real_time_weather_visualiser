@@ -5,6 +5,5 @@ class Raindrop extends Drop{
    super(screenX, screenY, zLevel, groundHeight, ground);
    speedFactor = 1.0f;
    dropColour = color (COLOUR_RAIN[0], COLOUR_RAIN[1], COLOUR_RAIN[2]);
-  
   }  
 }

@@ -5,9 +5,11 @@ Sky sky;
 int groundHeight;
 Drop[] drops;
 int removeDropCountdown;
+DropType currentDropType;
 
 //Colours
 public static final int[] COLOUR_RAIN = {0,50,200};
+public static final int[] COLOUR_SNOW = {220,220,255};
 
 void settings(){
   screenX = 500;
@@ -22,40 +24,30 @@ void setup() {
   ground = new Ground(groundHeight, screenY, screenX);
   sky = new Sky(groundHeight, screenX, screenY);
   removeDropCountdown = 250;
+  
+  currentDropType = DropType.SNOW;
 
   noStroke();
   
-  //Rain
-  int numOfRaindrops = 2000;
-  int closeRain = (int) (numOfRaindrops * 0.1);
-  int midRangeRain = (int) (numOfRaindrops * 0.55);
-  drops = new Raindrop[numOfRaindrops];
-  for (int i = 0; i < numOfRaindrops; i++) {
+  //Initialise drops
+  int numOfDrops = 2000;
+  int closeDrops = (int) (numOfDrops * 0.1);
+  int midRangeDrops = (int) (numOfDrops * 0.75);
+  drops = new Drop[numOfDrops];
+  for (int i = 0; i < numOfDrops; i++) {
     int zLevel = 1;
-      if(i < closeRain){
+      if(i < closeDrops){
         zLevel = 3;
-      } else if (i < midRangeRain){
+      } else if (i < midRangeDrops){
         zLevel = 2;
       }
-      drops[i] = new Raindrop(screenX, screenY, zLevel, groundHeight, ground);
+      if(currentDropType == DropType.SNOW){
+        drops[i] = new Snowdrop(screenX, screenY, zLevel, groundHeight, ground);
+      } else{
+          drops[i] = new Raindrop(screenX, screenY, zLevel, groundHeight, ground);
+      }
   }
   
-  /*
-  //Snow
-  int numOfSnowdrops = 2000;
-  int closeSnow = (int) (numOfSnowdrops * 0.1);
-  int midRangeSnow = (int) (numOfSnowdrops * 0.75);
-  snow = new Snowdrop[numOfSnowdrops];
-  for (int i = 0; i < numOfSnowdrops; i++) {
-    int zLevel = 1;
-      if(i < closeSnow){
-        zLevel = 3;
-      } else if (i < midRangeSnow){
-        zLevel = 2;
-      }
-      snow[i] = new Snowdrop(screenX, screenY, zLevel, groundHeight, ground);
-  }
-  */
 }
 
 void draw(){
