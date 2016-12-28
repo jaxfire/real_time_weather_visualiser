@@ -4,6 +4,10 @@ Ground ground;
 Sky sky;
 int groundHeight;
 Drop[] drops;
+int removeDropCountdown;
+
+//Colours
+public static final int[] COLOUR_RAIN = {0,50,200};
 
 void settings(){
   screenX = 500;
@@ -17,10 +21,9 @@ void setup() {
   //Ground
   ground = new Ground(groundHeight, screenY, screenX);
   sky = new Sky(groundHeight, screenX, screenY);
-  
-  
+  removeDropCountdown = 250;
+
   noStroke();
-  
   
   //Rain
   int numOfRaindrops = 2000;
@@ -57,6 +60,13 @@ void setup() {
 
 void draw(){
   
+  if(removeDropCountdown <= 0){
+    ground.removeDropLayer();
+    removeDropCountdown = 250;
+  }
+  
+  removeDropCountdown--;
+  
   sky.renderSky();
   
   //Update and draw the snow  
@@ -67,5 +77,5 @@ void draw(){
   
   ground.display();
  
-  println(frameRate);
+  //println("Framerate: " + frameRate);
 }

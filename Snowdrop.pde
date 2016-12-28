@@ -5,6 +5,5 @@ class Snowdrop extends Drop{
    super(screenX, screenY, zLevel, groundHeight, ground);
    speedFactor = 0.5f;
    dropColour = color (#ffffff);
-  
   }  
 }
